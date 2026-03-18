@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<!-- build: 2026-03-18-v25 -->
+<!-- build: 2026-03-18-v29 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -12,7 +12,8 @@
 <meta name="theme-color" content="#00b4d8"/>
 <title>Hamba — Be Legendary</title>
 <link rel="manifest" href="manifest.json"/>
-<link rel="icon" href="icons/icon-192.png"/>
+<link rel="icon" href="icons/favicon.png" type="image/png"/>
+<link rel="shortcut icon" href="icons/favicon.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png"/>
 <link rel="apple-touch-icon" href="icons/icon-192.png"/>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet"/>
@@ -61,13 +62,32 @@ console.log('window.BP ready');
 
 <style>
 :root{
-  --ink:#0d0d0d; --bg:#fff; --bg2:#f0f8ff; --bg3:#e0f0fa;
-  --red:#e8003d; --red2:#ff2244; --gold:#ffd700; --gold2:#fff176;
-  --teal:#00b4d8; --teal2:#48cae4; --green:#06d6a0; --amber:#ffd700;
-  --text:#0d0d0d; --text2:#3a3a5c; --text3:#7070a0;
-  --font:'Comic Neue',cursive; --hero:'Bangers',cursive;
-  --shadow:4px 4px 0 #0d0d0d; --shadow-lg:6px 6px 0 #0d0d0d;
-  --safe-top:env(safe-area-inset-top,0px); --safe-bot:env(safe-area-inset-bottom,0px);
+  --ink:#1a1a2e;
+  --bg:#fdf8f3;
+  --bg1:#ffffff;
+  --bg2:#f5ede3;
+  --bg3:#ecddd0;
+  --red:#d63447;
+  --red2:#e8003d;
+  --gold:#f5a623;
+  --gold2:#ffd166;
+  --teal:#0b9fd8;
+  --teal2:#48cae4;
+  --green:#2ec4b6;
+  --text:#1a1a2e;
+  --text2:#5a5a7a;
+  --text3:#9898b8;
+  --hero:'Bangers',cursive;
+  --body:'DM Sans',sans-serif;
+  --r:12px;
+  --r-sm:8px;
+  --r-lg:20px;
+  --shadow:0 2px 12px rgba(26,26,46,0.08);
+  --shadow-md:0 4px 24px rgba(26,26,46,0.12);
+  --shadow-lg:0 8px 40px rgba(26,26,46,0.16);
+  --border:rgba(26,26,46,0.1);
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bot:env(safe-area-inset-bottom,0px);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body,#app{height:100%;overflow:hidden;}
@@ -100,53 +120,53 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15
 .topbar-title{font-family:var(--hero);font-size:22px;color:#fff;letter-spacing:2px;text-shadow:2px 2px 0 var(--ink);}
 
 /* BUTTONS */
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--hero);font-size:17px;letter-spacing:2px;border:3px solid var(--ink);padding:12px 20px;cursor:pointer;width:100%;transition:transform .1s,box-shadow .1s;box-shadow:var(--shadow);}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--hero);font-size:17px;letter-spacing:2px;border:none;border-radius:var(--r);padding:13px 20px;cursor:pointer;width:100%;transition:all .15s;box-shadow:var(--shadow-md);}
 .btn:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--ink);}
-.btn-primary{background:var(--red);color:#fff;}
+.btn-primary{background:var(--red);color:#fff;border-radius:var(--r);}  .btn-primary:hover{background:#b8293a;transform:translateY(-1px);}
 .btn-primary:hover{background:#c0002a;}
 .btn-ghost{background:#fff;color:var(--ink);}
 .btn-ghost:hover{background:var(--bg2);}
-.btn-sm{width:auto;padding:7px 14px;font-size:13px;}
-.btn-teal{background:var(--teal);color:#fff;}
-.btn-gold{background:var(--gold);color:var(--ink);}
+.btn-sm{width:auto;padding:7px 14px;font-size:13px;border-radius:var(--r-sm);letter-spacing:1px;}
+.btn-teal{background:var(--teal);color:#fff;border-radius:var(--r);}
+.btn-gold{background:var(--gold);color:var(--ink);border-radius:var(--r);}
 
 /* INPUTS */
 .field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
 .field label{font-family:var(--hero);font-size:13px;letter-spacing:2px;color:var(--ink);text-transform:uppercase;}
-.field input,.field select,.field textarea{background:#fff;border:3px solid var(--ink);padding:11px 14px;font-family:var(--font);font-size:15px;color:var(--text);outline:none;-webkit-appearance:none;width:100%;box-shadow:3px 3px 0 var(--ink);}
+.field input,.field select,.field textarea{background:var(--bg1);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:12px 14px;font-family:var(--body);font-size:15px;color:var(--text);outline:none;-webkit-appearance:none;width:100%;box-shadow:var(--shadow);transition:border-color .2s,box-shadow .2s;}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--teal);box-shadow:3px 3px 0 var(--teal);}
 .field textarea{resize:none;min-height:70px;line-height:1.5;}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .field select option{background:#fff;}
 
 /* CARDS */
-.card{background:#fff;border:3px solid var(--ink);padding:16px;box-shadow:var(--shadow);}
-.card:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink);}
+.card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);transition:box-shadow .2s;}
+.card:hover{box-shadow:var(--shadow-md);}
 
 /* BADGE */
-.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border:2px solid var(--ink);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
-.badge-red{background:var(--red);color:#fff;}
-.badge-teal{background:var(--teal);color:#fff;}
-.badge-gold{background:var(--gold);color:var(--ink);}
-.badge-green{background:var(--green);color:#fff;}
-.badge-muted{background:var(--bg2);color:var(--ink);}
-.badge-amber{background:var(--amber);color:var(--ink);}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.3px;}
+.badge-red{background:rgba(214,52,71,.12);color:var(--red);}
+.badge-teal{background:rgba(11,159,216,.12);color:var(--teal);}
+.badge-gold{background:rgba(245,166,35,.15);color:#b07d00;}
+.badge-green{background:rgba(46,196,182,.12);color:#0a9991;}
+.badge-muted{background:var(--bg2);color:var(--text2);}
+.badge-amber{background:rgba(245,166,35,.15);color:#b07d00;}
 
 /* PILL TABS */
-.pill-tabs{display:flex;border:3px solid var(--ink);overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow);}
+.pill-tabs{display:flex;background:var(--bg2);border-radius:var(--r-sm);padding:3px;margin-bottom:16px;gap:3px;}
 .pill-tab{flex:1;padding:9px 6px;text-align:center;font-family:var(--hero);font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;color:var(--text2);border:none;background:transparent;border-right:2px solid var(--ink);}
 .pill-tab:last-child{border-right:none;}
-.pill-tab.active{background:var(--red);color:#fff;}
+.pill-tab.active{background:var(--bg1);color:var(--text);box-shadow:var(--shadow);}
 
 /* SECTION TITLE */
-.sec-title{font-family:var(--hero);font-size:16px;letter-spacing:2px;color:var(--ink);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
-.sec-title::after{content:'';flex:1;height:3px;background:var(--ink);}
+.sec-title{font-family:var(--hero);font-size:16px;letter-spacing:1px;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:8px;opacity:.9;}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--border);}
 
 /* DIVIDER */
 .comic-divider{height:8px;background:repeating-linear-gradient(90deg,var(--red) 0,var(--red) 24px,var(--ink) 24px,var(--ink) 27px,var(--gold) 27px,var(--gold) 51px,var(--ink) 51px,var(--ink) 54px,var(--teal) 54px,var(--teal) 78px,var(--ink) 78px,var(--ink) 81px);margin-bottom:14px;flex-shrink:0;}
 
 /* AVATAR */
-.avatar{width:44px;height:44px;border-radius:50%;border:3px solid var(--ink);background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:2px 2px 0 var(--ink);}
+.avatar{width:44px;height:44px;border-radius:50%;border:2px solid rgba(26,26,46,.1);background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
 .avatar-lg{width:72px;height:72px;font-size:36px;border-width:4px;box-shadow:3px 3px 0 var(--ink);}
 
 /* AVATAR GRID */
@@ -155,7 +175,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15
 .av-opt.sel{border:3px solid var(--ink);background:rgba(255,215,0,.2);box-shadow:2px 2px 0 var(--ink);}
 
 /* TOAST */
-.toast{position:fixed;bottom:calc(80px + var(--safe-bot));left:50%;transform:translateX(-50%) translateY(20px);background:var(--red);color:#fff;font-family:var(--hero);font-size:15px;letter-spacing:1px;padding:10px 20px;border:3px solid var(--ink);box-shadow:var(--shadow);z-index:9998;opacity:0;transition:all .3s;white-space:nowrap;text-transform:uppercase;}
+.toast{position:fixed;bottom:calc(80px + var(--safe-bot));left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-family:var(--body);font-size:14px;font-weight:600;padding:10px 20px;border-radius:30px;box-shadow:var(--shadow-lg);z-index:9998;opacity:0;transition:all .3s;white-space:nowrap;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
 /* EMPTY */
@@ -182,19 +202,19 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15
 .auth-wrap{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(var(--safe-top)+24px) 20px calc(24px + var(--safe-bot));
   background:#fff;background-image:repeating-conic-gradient(from 0deg at 50% 120%,#e8f4f8 0deg,#e8f4f8 2deg,#fff 2deg,#fff 4deg);}
 .auth-logo{text-align:center;margin-bottom:28px;}
-.auth-title{font-family:var(--hero);font-size:40px;color:var(--red);-webkit-text-stroke:2px var(--ink);text-shadow:3px 3px 0 var(--ink);letter-spacing:4px;margin-top:10px;}
-.auth-sub{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text2);margin-top:4px;}
-.auth-card{background:#fff;border:4px solid var(--ink);padding:24px;box-shadow:var(--shadow-lg);}
-.auth-tabs{display:flex;border:3px solid var(--ink);overflow:hidden;margin-bottom:22px;}
-.auth-tab{flex:1;padding:11px 8px;text-align:center;font-family:var(--hero);font-size:14px;letter-spacing:1px;cursor:pointer;color:var(--text2);border:none;border-right:2px solid var(--ink);background:transparent;text-transform:uppercase;}
+.auth-title{font-family:var(--hero);font-size:42px;color:var(--red);letter-spacing:4px;margin-top:10px;line-height:1;}
+.auth-sub{font-size:13px;font-weight:500;letter-spacing:1px;color:var(--text2);margin-top:6px;}
+.auth-card{background:var(--bg1);border-radius:var(--r-lg);padding:24px;box-shadow:var(--shadow-lg);}
+.auth-tabs{display:flex;background:var(--bg2);border-radius:var(--r-sm);padding:3px;margin-bottom:22px;gap:3px;}
+.auth-tab{flex:1;padding:9px 8px;text-align:center;font-family:var(--hero);font-size:13px;letter-spacing:1px;cursor:pointer;color:var(--text2);border:none;border-radius:var(--r-sm);background:transparent;text-transform:uppercase;transition:all .15s;}
 .auth-tab:last-child{border-right:none;}
-.auth-tab.active{background:var(--teal);color:#fff;}
+.auth-tab.active{background:var(--bg1);color:var(--text);box-shadow:var(--shadow);}
 
 /*  WHO SCREEN  */
 .who-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:16px;}
-.who-card{background:#fff;border:4px solid var(--ink);padding:24px 12px;text-align:center;cursor:pointer;box-shadow:var(--shadow);transition:transform .1s,box-shadow .1s;position:relative;overflow:hidden;}
-.who-card:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--ink);}
-.who-card:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--ink);}
+.who-card{background:var(--bg1);border-radius:var(--r-lg);padding:24px 12px;text-align:center;cursor:pointer;box-shadow:var(--shadow-md);transition:all .2s;position:relative;overflow:hidden;border:1px solid var(--border);}
+.who-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+.who-card:active{transform:scale(.97);}
 
 /*  PIN  */
 .pin-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:24px;}
@@ -207,35 +227,35 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15
 .pin-dot.filled{background:var(--red);border-color:var(--red);transform:scale(1.3);}
 .pin-err{color:var(--red);font-weight:700;font-size:13px;min-height:18px;margin-bottom:10px;}
 .pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
-.pin-k{background:#fff;color:var(--ink);border:3px solid var(--ink);padding:15px 0;font-family:var(--hero);font-size:26px;letter-spacing:1px;cursor:pointer;box-shadow:var(--shadow);transition:all .1s;}
+.pin-k{background:var(--bg1);color:var(--text);border:1px solid var(--border);border-radius:var(--r);padding:15px 0;font-family:var(--hero);font-size:26px;letter-spacing:1px;cursor:pointer;box-shadow:var(--shadow);transition:all .1s;}
 .pin-k:active{transform:translate(4px,4px);box-shadow:0 0 0;background:var(--red);color:#fff;}
 
 /*  PARENT APP  */
 #v-parent-app{flex-direction:column;}
-#p-topbar{background:var(--ink);padding:calc(var(--safe-top)+10px) 16px 0;flex-shrink:0;}
+#p-topbar{background:var(--red);padding:calc(var(--safe-top)+10px) 16px 0;flex-shrink:0;}
 #p-topbar-row1{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
 .p-nav{display:flex;overflow-x:auto;scrollbar-width:none;gap:0;}
 .p-nav::-webkit-scrollbar{display:none;}
-.p-tab{background:transparent;border:none;color:rgba(255,255,255,.45);font-family:var(--hero);font-size:13px;letter-spacing:1px;padding:10px 14px;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .15s;text-transform:uppercase;}
-.p-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.p-tab{background:transparent;border:none;color:rgba(255,255,255,.5);font-family:var(--hero);font-size:13px;letter-spacing:1px;padding:10px 14px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;text-transform:uppercase;}
+.p-tab.active{color:#fff;border-bottom-color:#fff;}
 #p-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 #p-scroll::-webkit-scrollbar{display:none;}
 .p-pane{display:none;}
 .p-pane.active{display:block;}
-.p-sec-hdr{background:var(--ink);color:#fff;padding:13px 16px;font-family:var(--hero);font-size:17px;letter-spacing:2px;border-bottom:3px solid var(--gold);display:flex;align-items:center;justify-content:space-between;}
+.p-sec-hdr{background:var(--bg);color:var(--text);padding:16px;font-family:var(--hero);font-size:17px;letter-spacing:2px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .p-action{background:var(--gold);color:var(--ink);border:none;font-family:var(--hero);font-size:13px;letter-spacing:1px;padding:7px 14px;cursor:pointer;text-transform:uppercase;}
 .p-action:active{opacity:.8;}
 
 /* Dash tiles */
 .dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 14px 0;}
-.dash-tile{background:#fff;border:3px solid var(--ink);padding:14px;cursor:pointer;box-shadow:var(--shadow);transition:transform .1s,box-shadow .1s;position:relative;overflow:hidden;}
-.dash-tile:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink);}
+.dash-tile{background:var(--bg1);border-radius:var(--r);padding:16px;cursor:pointer;box-shadow:var(--shadow);transition:all .2s;position:relative;overflow:hidden;border:1px solid var(--border);}
+.dash-tile:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);} .dash-tile:active{transform:scale(.98);}
 .dash-tile-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:4px;}
-.dash-tile-val{font-family:var(--hero);font-size:36px;color:var(--ink);letter-spacing:1px;line-height:1;}
+.dash-tile-val{font-family:var(--hero);font-size:38px;color:var(--text);letter-spacing:1px;line-height:1;}
 .dash-tile-sub{font-size:11px;color:var(--text2);margin-top:3px;}
-.dash-tile.alert{border-color:var(--red);box-shadow:4px 4px 0 var(--red);}
+.dash-tile.alert{border-left:4px solid var(--red);background:rgba(214,52,71,.04);}
 .dash-tile.alert .dash-tile-val{color:var(--red);}
-.dash-tile.info{border-color:var(--teal);box-shadow:4px 4px 0 var(--teal);}
+.dash-tile.info{border-left:4px solid var(--teal);background:rgba(11,159,216,.04);}
 .dash-tile.info .dash-tile-val{color:var(--teal);}
 
 /* Child progress */
@@ -249,17 +269,17 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15
 .crow-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--text2);font-weight:700;margin-top:3px;}
 
 /* Approval card */
-.appr-card{background:#fff;border:3px solid var(--red);box-shadow:4px 4px 0 var(--red);padding:16px;margin-bottom:12px;}
+.appr-card{background:var(--bg1);border-radius:var(--r);border:1px solid rgba(214,52,71,.25);box-shadow:0 2px 12px rgba(214,52,71,.1);padding:16px;margin-bottom:12px;}
 .appr-actions{display:flex;gap:8px;margin-top:12px;}
-.btn-appr{flex:1;background:var(--green);color:#fff;border:3px solid var(--ink);font-family:var(--hero);font-size:16px;letter-spacing:1px;padding:10px;cursor:pointer;box-shadow:var(--shadow);}
+.btn-appr{flex:1;background:var(--green);color:#fff;border:none;border-radius:var(--r-sm);font-family:var(--hero);font-size:16px;letter-spacing:1px;padding:10px;cursor:pointer;transition:opacity .15s;}
 .btn-appr:active{transform:translate(3px,3px);box-shadow:0 0;}
-.btn-rej{background:#fff;color:var(--red);border:3px solid var(--red);font-family:var(--hero);font-size:16px;letter-spacing:1px;padding:10px 14px;cursor:pointer;box-shadow:4px 4px 0 var(--red);}
+.btn-rej{background:rgba(214,52,71,.06);color:var(--red);border:1px solid rgba(214,52,71,.3);border-radius:var(--r-sm);font-family:var(--hero);font-size:16px;letter-spacing:1px;padding:10px 14px;cursor:pointer;}
 .btn-rej:active{transform:translate(3px,3px);box-shadow:0 0;}
 
 /* Task item */
-.task-item{display:flex;align-items:flex-start;gap:12px;padding:14px;background:#fff;border:3px solid var(--ink);border-left:7px solid var(--teal);margin-bottom:10px;cursor:pointer;box-shadow:var(--shadow);transition:transform .1s,box-shadow .1s;}
-.task-item:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
-.task-item:active{transform:translate(3px,3px);box-shadow:0 0;}
+.task-item{display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--bg1);border:1px solid var(--border);border-left:4px solid var(--teal);border-radius:var(--r);margin-bottom:10px;cursor:pointer;box-shadow:var(--shadow);transition:all .15s;}
+.task-item:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-left-color:var(--red);}
+.task-item:active{transform:scale(.99);}
 .task-item.expired{opacity:.5;border-left-color:var(--text3);}
 .t-check{width:22px;height:22px;border:3px solid var(--ink);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;}
 .t-check.done{background:var(--green);color:#fff;}
@@ -289,32 +309,32 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15
 .c-name{font-family:var(--hero);font-size:22px;color:#fff;letter-spacing:2px;text-shadow:2px 2px 0 var(--ink);line-height:1.1;}
 .c-lvl{background:var(--red);color:#fff;font-family:var(--hero);font-size:11px;letter-spacing:1px;padding:2px 8px;border:2px solid var(--ink);display:inline-block;margin-top:3px;text-transform:uppercase;}
 .c-pts-area{text-align:right;}
-.c-pts-big{font-family:var(--hero);font-size:48px;color:var(--gold);-webkit-text-stroke:2px var(--ink);line-height:1;}
+.c-pts-big{font-family:var(--hero);font-size:48px;color:#fff;line-height:1;text-shadow:0 2px 8px rgba(0,0,0,.2);}
 .c-pts-lbl{font-size:10px;color:rgba(255,255,255,.8);font-weight:700;letter-spacing:2px;text-transform:uppercase;}
 .c-xp-row{display:flex;align-items:center;gap:8px;margin-top:2px;}
 .c-xp-bar{flex:1;height:10px;background:rgba(0,0,0,.3);border:2px solid rgba(255,255,255,.4);overflow:hidden;}
 .c-xp-fill{height:100%;background:repeating-linear-gradient(90deg,var(--gold) 0,var(--gold) 14px,var(--gold2) 14px,var(--gold2) 28px);transition:width .8s cubic-bezier(.4,1.2,.6,1);}
 .c-xp-lbl{font-size:10px;color:#fff;font-weight:700;white-space:nowrap;}
 .c-stats{display:flex;gap:6px;margin-top:12px;}
-.c-stat{flex:1;background:rgba(0,0,0,.25);border:2px solid rgba(255,255,255,.25);padding:7px 4px;text-align:center;}
+.c-stat{flex:1;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--r-sm);padding:7px 4px;text-align:center;}
 .c-stat-val{font-family:var(--hero);font-size:19px;color:#fff;letter-spacing:1px;}
 .c-stat-lbl{font-size:9px;color:rgba(255,255,255,.65);font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
 #c-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 #c-scroll::-webkit-scrollbar{display:none;}
 .c-pane{display:none;padding:12px;}
 .c-pane.active{display:block;}
-#c-nav{display:flex;background:var(--ink);border-top:4px solid var(--gold);padding-bottom:var(--safe-bot);flex-shrink:0;}
-.c-nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 4px;border:none;background:transparent;color:rgba(255,255,255,.35);cursor:pointer;transition:color .15s;}
-.c-nb.active{color:var(--gold);}
-.c-nb.active .c-ni{filter:drop-shadow(0 0 8px var(--gold));transform:scale(1.15);}
+#c-nav{display:flex;background:var(--bg1);border-top:1px solid var(--border);padding-bottom:var(--safe-bot);flex-shrink:0;box-shadow:0 -4px 20px rgba(26,26,46,.08);}
+.c-nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 4px;border:none;background:transparent;color:var(--text3);cursor:pointer;transition:color .15s;}
+.c-nb.active{color:var(--red);}
+.c-nb.active .c-ni{transform:scale(1.15);}
 .c-ni{font-size:22px;transition:all .2s;}
 .c-nl{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
 
 /* Quest cards */
-.quest-card{background:#fff;border:3px solid var(--ink);box-shadow:var(--shadow);margin-bottom:12px;cursor:pointer;transition:transform .1s,box-shadow .1s;}
-.quest-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
-.quest-card:active{transform:translate(4px,4px);box-shadow:0 0;}
-.quest-hdr{padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid var(--ink);}
+.quest-card{background:var(--bg1);border-radius:var(--r);box-shadow:var(--shadow);margin-bottom:12px;cursor:pointer;transition:all .2s;overflow:hidden;border:1px solid var(--border);}
+.quest-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);}
+.quest-card:active{transform:scale(.99);}
+.quest-hdr{padding:10px 14px;display:flex;align-items:center;justify-content:space-between;}
 .quest-hdr.Easy{background:var(--green);}
 .quest-hdr.Medium{background:var(--teal);}
 .quest-hdr.Hard{background:#7209b7;}
@@ -328,8 +348,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15
 .quest-due{font-size:11px;font-weight:700;color:var(--text2);}
 .quest-due.urgent{color:var(--red);}
 .quest-reward{background:var(--gold);color:var(--ink);font-size:11px;font-weight:700;padding:2px 8px;border:2px solid var(--ink);}
-.btn-quest{width:100%;background:var(--red);color:#fff;border:none;border-top:3px solid var(--ink);font-family:var(--hero);font-size:17px;letter-spacing:3px;padding:12px;cursor:pointer;animation:questPulse 3s ease-in-out infinite;}
-.quest-pending{background:var(--amber);color:var(--ink);font-family:var(--hero);font-size:13px;letter-spacing:1px;padding:10px 14px;border-top:3px solid var(--ink);text-align:center;text-transform:uppercase;}
+.btn-quest{width:100%;background:var(--red);color:#fff;border:none;font-family:var(--hero);font-size:17px;letter-spacing:3px;padding:13px;cursor:pointer;transition:background .2s;} .btn-quest:active{background:#b8293a;}
+.quest-pending{background:rgba(245,166,35,.12);color:#b07d00;font-family:var(--hero);font-size:13px;letter-spacing:1px;padding:10px 14px;text-align:center;text-transform:uppercase;}
 
 /* Reward cards */
 .reward-card{background:#fff;border:3px solid var(--ink);padding:0;box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden;position:relative;}
@@ -341,11 +361,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15
 .reward-pts{font-family:var(--hero);font-size:18px;color:var(--red);letter-spacing:1px;}
 
 /* Issued rewards */
-.issued-card{background:#fff;border:4px solid var(--gold);box-shadow:var(--shadow);padding:16px;margin-bottom:12px;cursor:pointer;animation:goldGlow 2.5s ease-in-out infinite;}
-.issued-card.done{border-color:var(--green);animation:none;}
+.issued-card{background:linear-gradient(135deg,rgba(245,166,35,.06),var(--bg1));border:1px solid rgba(245,166,35,.4);border-radius:var(--r);padding:16px;margin-bottom:12px;cursor:pointer;box-shadow:0 2px 12px rgba(245,166,35,.15);}
+.issued-card.done{border-color:rgba(46,196,182,.4);background:rgba(46,196,182,.04);}
 
 /* LB */
-.lb-item{display:flex;align-items:center;gap:12px;padding:14px;background:#fff;border:3px solid var(--ink);border-left:7px solid var(--ink);margin-bottom:10px;box-shadow:var(--shadow);}
+.lb-item{display:flex;align-items:center;gap:12px;padding:14px;background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);margin-bottom:10px;box-shadow:var(--shadow);}
 .lb-item:first-child{border-left-color:var(--gold);animation:goldGlow 3s ease-in-out infinite;}
 .lb-item:nth-child(2){border-left-color:#c0c0c0;}
 .lb-item:nth-child(3){border-left-color:#cd7f32;}
@@ -357,7 +377,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15
 .lb-item.me{border-color:var(--teal);background:rgba(0,180,216,.05);}
 
 /* Reward teaser */
-.teaser{background:rgba(255,215,0,.08);border:3px solid var(--gold);box-shadow:3px 3px 0 var(--ink);padding:12px;margin-bottom:10px;display:flex;align-items:center;gap:12px;}
+.teaser{background:linear-gradient(135deg,rgba(245,166,35,.06),var(--bg1));border:1px solid rgba(245,166,35,.3);border-radius:var(--r);padding:12px;margin-bottom:10px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow);}
 .teaser-bar{height:5px;background:#eee;border:2px solid var(--ink);margin-top:5px;overflow:hidden;}
 .teaser-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));}
 
@@ -370,11 +390,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15
 .notif-dot{position:absolute;top:2px;right:2px;width:9px;height:9px;background:var(--red);border-radius:50%;border:2px solid var(--ink);animation:notifPop 1s ease-in-out infinite;}
 
 /* Sheet */
-.sheet-ov{display:none;position:fixed;inset:0;background:rgba(13,13,13,.65);z-index:200;align-items:flex-end;}
+.sheet-ov{display:none;position:fixed;inset:0;background:rgba(26,26,46,.5);backdrop-filter:blur(4px);z-index:200;align-items:flex-end;}
 .sheet-ov.open{display:flex;}
-.sheet{background:var(--bg);border-top:5px solid var(--ink);border-left:4px solid var(--ink);border-right:4px solid var(--ink);width:100%;max-height:92vh;overflow-y:auto;padding:8px 20px calc(20px + var(--safe-bot));animation:slideUp .25s cubic-bezier(.32,1.3,.4,1);}
+.sheet{background:var(--bg1);border-radius:24px 24px 0 0;width:100%;max-height:92vh;overflow-y:auto;padding:8px 20px calc(20px + var(--safe-bot));animation:slideUp .3s cubic-bezier(.32,1.3,.4,1);box-shadow:0 -8px 40px rgba(26,26,46,.12);}
 .sheet-handle{width:44px;height:5px;background:var(--teal);margin:12px auto 20px;}
-.sheet-title{font-family:var(--hero);font-size:26px;letter-spacing:2px;color:var(--ink);margin-bottom:20px;}
+.sheet-title{font-family:var(--hero);font-size:26px;letter-spacing:2px;color:var(--text);margin-bottom:20px;}
 
 /* Emoji picker */
 .emoji-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
@@ -395,7 +415,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15
 /* Celebrate */
 .cel-ov{display:none;position:fixed;inset:0;background:rgba(13,13,13,.7);z-index:9990;align-items:center;justify-content:center;}
 .cel-ov.open{display:flex;}
-.cel-box{background:var(--gold);border:5px solid var(--ink);box-shadow:var(--shadow-lg);padding:36px 28px;text-align:center;max-width:320px;width:90%;animation:popIn .4s cubic-bezier(.34,1.56,.64,1);}
+.cel-box{background:var(--bg1);border-radius:var(--r-lg);box-shadow:var(--shadow-lg);padding:36px 28px;text-align:center;max-width:320px;width:90%;animation:popIn .4s cubic-bezier(.34,1.56,.64,1);}
 .cel-icon{font-size:72px;animation:wiggle 1s ease-in-out infinite;display:block;margin-bottom:12px;}
 .cel-title{font-family:var(--hero);font-size:28px;letter-spacing:2px;color:var(--ink);margin-bottom:8px;}
 .cel-sub{font-size:14px;color:var(--ink);margin-bottom:20px;line-height:1.5;}
@@ -467,7 +487,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15
     </div>
     <div style="font-family:'Bangers',cursive;font-size:40px;color:#fff;-webkit-text-stroke:2px #0d0d0d;text-shadow:3px 3px 0 #0d0d0d;letter-spacing:4px;">HAMBA</div>
     <div style="background:var(--gold);color:var(--ink);font-family:'Bangers',cursive;font-size:13px;letter-spacing:3px;padding:5px 16px;border:3px solid var(--ink);text-transform:uppercase;">Be Legendary</div>
-    <div style="color:rgba(255,255,255,.4);font-size:10px;font-family:monospace;">v25</div>
+    <div style="color:rgba(255,255,255,.4);font-size:10px;font-family:monospace;">v29</div>
   </div>
 </div>
 
@@ -526,9 +546,9 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15
       </div>
       <div class="auth-card">
         <div class="auth-tabs" id="auth-tabs">
-          <button class="auth-tab active" onclick="authTab('login',this)">Sign In</button>
-          <button class="auth-tab" onclick="authTab('register',this)">Create Family</button>
-          <button class="auth-tab" onclick="authTab('join',this)">Join Family</button>
+          <button class="auth-tab active" onclick="authTab('login',this)">Parent</button>
+          <button class="auth-tab" onclick="authTab('child',this)">Child Login</button>
+          <button class="auth-tab" onclick="authTab('register',this)">New Family</button>
         </div>
         <div id="auth-login">
           <div class="field"><label>Email</label><input id="li-email" type="email" placeholder="your@email.com" autocomplete="email"/></div>
@@ -543,8 +563,19 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15
           <div class="field"><label>Your PIN (4 digits)</label><input id="rg-pin" type="password" inputmode="numeric" maxlength="4" placeholder="&#8226;&#8226;&#8226;&#8226;"/></div>
           <button class="btn btn-primary" onclick="doRegister()">Create Family!</button>
         </div>
+        <div id="auth-child" style="display:none;">
+          <div style="background:var(--teal);color:#fff;padding:12px 14px;margin-bottom:18px;font-size:13px;font-weight:700;border:2px solid var(--ink);">
+            &#128274; Your username and PIN were set when you first joined. Ask a parent if you forgot.
+          </div>
+          <div class="field"><label>Your Username</label><input id="cl-username" placeholder="e.g. Emma" autocomplete="username"/></div>
+          <div class="field"><label>Your PIN</label><input id="cl-pin" type="password" inputmode="numeric" maxlength="4" placeholder="&#8226;&#8226;&#8226;&#8226;" autocomplete="current-password"/></div>
+          <button class="btn btn-primary" onclick="doChildLogin()">Enter &#9889;</button>
+          <div style="margin-top:16px;text-align:center;">
+            <div style="font-size:13px;color:var(--text2);margin-bottom:8px;">First time? Ask your parent for a join link.</div>
+          </div>
+        </div>
         <div id="auth-join" style="display:none;">
-          <div style="text-align:center;margin-bottom:16px;font-size:13px;color:var(--text2);">Enter the 6-letter family code from a parent's Profile tab.</div>
+          <div style="text-align:center;margin-bottom:16px;font-size:13px;color:var(--text2);">Enter the 6-letter family code from a parent&#39;s Profile tab.</div>
           <div class="field"><label>Family Code</label><input id="jn-code" placeholder="e.g. AB12CD" style="text-transform:uppercase;letter-spacing:4px;font-size:20px;text-align:center;"/></div>
           <button class="btn btn-primary" onclick="doJoinFamily()">Find My Family</button>
         </div>
@@ -728,6 +759,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15
     <div class="sheet-handle"></div>
     <div class="sheet-title">Add Family Member</div>
     <div class="field"><label>Nickname</label><input id="am-name" placeholder="e.g. Emma"/></div>
+    <div class="field"><label>Username (child uses this to log in)</label><input id="am-username" placeholder="e.g. emma2015" autocomplete="off" style="font-family:monospace;letter-spacing:1px;"/></div>
     <div class="field"><label>Role</label><select id="am-role"><option value="child">Child</option><option value="parent">Parent</option></select></div>
     <div class="field"><label>PIN (4 digits)</label><input id="am-pin" type="password" inputmode="numeric" maxlength="4" placeholder="&#8226;&#8226;&#8226;&#8226;"/></div>
     <div class="field"><label>Avatar Photo (optional)</label>
@@ -890,6 +922,17 @@ function waitBP(cb,n=0){
   }
 },ms));
 
+// Animate loading dots
+(function(){
+  const dots=['.','..','...','....'];let i=0;
+  const interval=setInterval(()=>{
+    const el=document.getElementById('load-dots');
+    if(el){el.textContent=dots[i++%dots.length];}
+    else clearInterval(interval);
+  },400);
+  setTimeout(()=>clearInterval(interval),8000);
+})();
+
 waitBP(async function(BP){
   bp=BP;
   // PWA install
@@ -901,7 +944,7 @@ waitBP(async function(BP){
     const b=document.getElementById('install-btn');if(b)b.style.display='block';
   }
   // Session restore
-  const stored=JSON.parse(sessionStorage.getItem('bp_session')||'null');
+  const stored=JSON.parse(localStorage.getItem('bp_session')||'null');
   if(stored){
     familyId=stored.familyId; meId=stored.meId;
     try{
@@ -909,12 +952,16 @@ waitBP(async function(BP){
       me=familyData?.members?.[meId];
       if(me){enterApp();return;}
     }catch(e){console.error(e);}
-    sessionStorage.removeItem('bp_session');
+    localStorage.removeItem('bp_session');
   }
-  bp.onAuth(user=>{
-    if(user) loadFamilyForUser(user.uid);
-    else show('v-auth');
-  });
+  // Check for magic link FIRST
+  const hasMagicLink = await checkMagicLink();
+  if(!hasMagicLink){
+    bp.onAuth(user=>{
+      if(user) loadFamilyForUser(user.uid);
+      else show('v-auth');
+    });
+  }
   if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 });
 
@@ -932,23 +979,45 @@ async function loadFamily(){
 async function loadFamilyForUser(uid){
   try{
     const fid=await bp.dbGet('userFamily/'+uid);
-    if(fid){familyId=fid;await loadFamily();show('v-who');renderWho();}
-    else show('v-auth');
-  }catch(e){console.error(e);show('v-auth');}
+    if(fid){
+      familyId=fid;
+      await loadFamily();
+      show('v-who');
+      renderWho();
+    } else {
+      // New user — no family yet, go to register
+      show('v-auth');
+    }
+  }catch(e){
+    console.error('loadFamilyForUser error:',e);
+    // If network error, still show auth so user can retry
+    show('v-auth');
+    if(e.message&&e.message.includes('network')){
+      setTimeout(()=>toast('Connection error — check your internet'),100);
+    }
+  }
 }
 
 function enterApp(){
-  sessionStorage.setItem('bp_session',JSON.stringify({familyId,meId}));
+  localStorage.setItem('bp_session',JSON.stringify({familyId,meId}));
   if(me.role==='parent'){show('v-parent-app');renderParentApp();}
   else{show('v-child-app');renderChildApp();}
   checkWeeklyReset();
 }
 
 function refreshViews(){
-  if(!me||!familyData)return;
-  me=familyData.members?.[meId]||me;
-  if(me.role==='parent'&&document.getElementById('v-parent-app').classList.contains('active')) renderParentApp();
-  if(me.role==='child'&&document.getElementById('v-child-app').classList.contains('active')) renderChildApp();
+  if(!me||!familyData) return;
+  me = familyData.members?.[meId] || me;
+  try {
+    if(me.role==='parent') {
+      const papp = document.getElementById('v-parent-app');
+      if(papp && papp.classList.contains('active')) renderParentApp();
+    } else {
+      const capp = document.getElementById('v-child-app');
+      if(capp && capp.classList.contains('active')) renderChildApp();
+    }
+    updateRewardsDot();
+  } catch(e) { console.error('refreshViews error:', e); }
 }
 
 // 
@@ -975,7 +1044,7 @@ function buildAvGrid(cid,prefix){const el=document.getElementById(cid);if(!el)re
 function authTab(tab,btn){
   document.querySelectorAll('.auth-tab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  ['login','register','join'].forEach(t=>{
+  ['login','register','join','child'].forEach(t=>{
     const el=document.getElementById('auth-'+t);
     if(el) el.style.display=t===tab?'':'none';
   });
@@ -987,6 +1056,8 @@ async function doRegister(){
   if(!family||!name||!email||!pw||!pin)return toast('Fill all fields!');
   if(pw.length<6)return toast('Password needs 6+ chars');
   if(!/^\d{4}$/.test(pin))return toast('PIN must be 4 digits');
+  const regBtn=document.querySelector('#auth-register .btn-primary');
+  if(regBtn){regBtn.textContent='Creating family...';regBtn.disabled=true;}
   try{
     const user=await bp.authRegister(email,pw);
     familyId='fam_'+user.uid; meId='member_'+user.uid;
@@ -1004,15 +1075,28 @@ async function doRegister(){
 
 async function doLogin(){
   const email=vv('li-email').trim(),pw=vv('li-pw');
-  if(!email||!pw)return toast('Enter email and password');
-  try{const user=await bp.authLogin(email,pw);loadFamilyForUser(user.uid);}
-  catch(e){toast(e.message||'Login failed');}
+  if(!email||!pw)return toast('Fill in email and password');
+  const btn=document.querySelector('#auth-login .btn-primary');
+  if(btn){btn.textContent='Signing in...';btn.disabled=true;}
+  try{
+    const user=await bp.authLogin(email,pw);
+    await loadFamilyForUser(user.uid);
+  } catch(e){
+    const msg=e.code==='auth/wrong-password'||e.code==='auth/invalid-credential'?'Wrong email or password':
+              e.code==='auth/user-not-found'?'No account with that email':
+              e.code==='auth/too-many-requests'?'Too many attempts — try again later':
+              e.code==='auth/network-request-failed'?'No internet connection':
+              e.message||'Login failed';
+    toast(msg);
+  } finally{
+    if(btn){btn.textContent='Sign In';btn.disabled=false;}
+  }
 }
 
 const _joinAttempts={count:0,lockedUntil:0};
 async function doJoinFamily(){
   const code=vv('jn-code').trim().toUpperCase();
-  if(code.length!==6)return toast('Enter 6-letter code');
+  if(code.length!==6)return toast('Code must be exactly 6 letters');
   const now=Date.now();
   if(_joinAttempts.lockedUntil>now)return toast('Too many attempts. Wait '+Math.ceil((_joinAttempts.lockedUntil-now)/1000)+'s');
   try{
@@ -1040,9 +1124,193 @@ function goToStripe() {
   closeSheet('s-upgrade');
 }
 
+
+
+// ── MAGIC LINK HANDLER ──
+// Checks URL for ?join=TOKEN and shows join flow
+async function checkMagicLink(){
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('join');
+  if(!token) return false;
+
+  try {
+    const rec = await bp.dbGet('magicLinks/'+token);
+    if(!rec || rec.expiresAt < Date.now()){
+      toast('This invite link has expired — ask your parent for a new one');
+      return false;
+    }
+    // Store token for after username/PIN setup
+    window._pendingMagicLink = {token, familyId: rec.familyId};
+    // Show the magic link join UI
+    showMagicLinkJoin(rec);
+    return true;
+  } catch(e){
+    console.error('magic link error:', e);
+    return false;
+  }
+}
+
+function showMagicLinkJoin(rec){
+  // Switch to a special join mode on auth screen
+  show('v-auth');
+  ['login','register','join','child'].forEach(t=>{
+    const el=document.getElementById('auth-'+t);
+    if(el) el.style.display='none';
+  });
+  document.querySelectorAll('.auth-tab').forEach(b=>b.classList.remove('active'));
+
+  // Create magic join form dynamically
+  let magicDiv = document.getElementById('auth-magic');
+  if(!magicDiv){
+    magicDiv = document.createElement('div');
+    magicDiv.id = 'auth-magic';
+    document.querySelector('.auth-card').appendChild(magicDiv);
+  }
+  magicDiv.style.display='';
+  magicDiv.innerHTML = `
+    <div style="text-align:center;margin-bottom:20px;">
+      <div style="font-size:36px;margin-bottom:8px;">&#128075;</div>
+      <div style="font-family:var(--hero);font-size:22px;letter-spacing:2px;color:var(--ink);">YOU'RE INVITED!</div>
+      <div style="font-size:14px;color:var(--text2);margin-top:6px;">Set up your hero profile</div>
+    </div>
+    <div class="field"><label>Pick your username</label>
+      <input id="magic-username" placeholder="e.g. emma2015" autocomplete="off" style="font-family:monospace;letter-spacing:1px;"/>
+      <div style="font-size:12px;color:var(--text2);margin-top:4px;">You'll use this every time you log in</div>
+    </div>
+    <div class="field"><label>Choose a 4-digit PIN</label>
+      <input id="magic-pin" type="password" inputmode="numeric" maxlength="4" placeholder="&#8226;&#8226;&#8226;&#8226;"/>
+    </div>
+    <div class="field"><label>Confirm PIN</label>
+      <input id="magic-pin2" type="password" inputmode="numeric" maxlength="4" placeholder="&#8226;&#8226;&#8226;&#8226;"/>
+    </div>
+    <button class="btn btn-primary" onclick="completeMagicJoin()">Join the Family &#9889;</button>
+  `;
+}
+
+async function completeMagicJoin(){
+  const link = window._pendingMagicLink;
+  if(!link) return;
+  const username = vv('magic-username').trim().toLowerCase().replace(/[^a-z0-9]/g,'');
+  const pin = vv('magic-pin').trim();
+  const pin2 = vv('magic-pin2').trim();
+  if(!username || username.length < 3) return toast('Username must be at least 3 characters');
+  if(!/^\d{4}$/.test(pin)) return toast('PIN must be 4 digits');
+  if(pin !== pin2) return toast('PINs do not match');
+
+  const btn = document.querySelector('#auth-magic .btn-primary');
+  if(btn){btn.textContent='Joining...';btn.disabled=true;}
+
+  try {
+    familyId = link.familyId;
+    await loadFamily();
+
+    // Check username unique
+    const taken = Object.values(familyData.members||{}).some(m=>m.username===username);
+    if(taken){ toast('That username is taken — try another'); return; }
+
+    // Create member with pending status
+    const rec = await bp.dbGet('magicLinks/'+link.token);
+    const id = rec.memberId || 'member_'+Date.now();
+    const existingMember = familyData.members?.[id];
+
+    const member = {
+      ...existingMember,
+      id, username, pin,
+      status: 'pending_approval',
+      joinedAt: Date.now(),
+      avatar: existingMember?.avatar || AVATARS[Math.floor(Math.random()*AVATARS.length)],
+      points:0, weeklyPoints:0, completedTasks:0, streak:0, unlockedBadges:{},
+    };
+    if(!existingMember?.name) member.name = username;
+
+    await bp.dbSet('families/'+familyId+'/members/'+id, member);
+    await bp.dbSet('usernameIndex/'+username, {fid:familyId, mid:id});
+    // Mark link as used
+    await bp.dbSet('magicLinks/'+link.token+'/used', true);
+
+    // Clean URL
+    window.history.replaceState({}, '', window.location.pathname);
+
+    // Show waiting screen
+    const magicDiv = document.getElementById('auth-magic');
+    if(magicDiv) magicDiv.innerHTML = `
+      <div style="text-align:center;padding:24px 0;">
+        <div style="font-size:48px;margin-bottom:12px;">&#9203;</div>
+        <div style="font-family:var(--hero);font-size:22px;letter-spacing:2px;margin-bottom:8px;">ALMOST THERE!</div>
+        <div style="font-size:14px;color:var(--text2);line-height:1.6;">
+          Your username is <b style="color:var(--ink);">${username}</b>.<br>
+          Waiting for your parent to approve...<br><br>
+          Once approved, come back and use<br><b>Child Login</b> tab to sign in!
+        </div>
+      </div>
+    `;
+  } catch(e){
+    console.error('magic join error:', e);
+    toast('Error joining — check your connection');
+  } finally {
+    if(btn){btn.textContent='Join the Family ⚡';btn.disabled=false;}
+  }
+}
+
+async function doChildLogin(){
+  const username = vv('cl-username').trim().toLowerCase().replace(/[^a-z0-9]/g,'');
+  const pin = vv('cl-pin').trim();
+  if(!username) return toast('Enter your username');
+  if(!pin) return toast('Enter your PIN');
+
+  const btn = document.querySelector('#auth-child .btn-primary');
+  if(btn){btn.textContent='Finding you...';btn.disabled=true;}
+
+  try {
+    // Search all families for this username
+    // We store a username→familyId+memberId index for fast lookup
+    const idx = await bp.dbGet('usernameIndex/'+username);
+
+    if(!idx){
+      toast('Username not found — check spelling or ask your parent');
+      return;
+    }
+
+    const{fid, mid} = idx;
+    familyId = fid;
+    await loadFamily();
+
+    const member = familyData?.members?.[mid];
+    if(!member){
+      toast('Account not found — ask your parent to check');
+      return;
+    }
+
+    // Check if still pending approval
+    if(member.status === 'pending_approval' || member.status === 'pending'){
+      toast('Your parent hasn\'t approved you yet! Ask them to check their Approvals tab.');
+      return;
+    }
+
+    // Check PIN
+    if(String(member.pin) !== String(pin)){
+      toast('Wrong PIN — try again');
+      document.getElementById('cl-pin').value='';
+      return;
+    }
+
+    // Success
+    meId = mid;
+    me = member;
+    localStorage.setItem('bp_joined_as', mid);
+    enterApp();
+
+  } catch(e){
+    console.error('child login error:', e);
+    toast('Error — check your internet connection');
+  } finally {
+    if(btn){btn.textContent='Enter ⚡';btn.disabled=false;}
+  }
+}
+
 async function doSignOut(){
-  sessionStorage.removeItem('bp_session');
-  sessionStorage.removeItem('bp_joined_as');
+  localStorage.removeItem('bp_session');
+  localStorage.removeItem('bp_joined_as');
   if(unsub)unsub();
   familyId=null;familyData=null;me=null;meId=null;
   await bp.authSignOut();
@@ -1055,7 +1323,7 @@ async function doSignOut(){
 function renderWho(){
   document.getElementById('who-family-name').textContent=familyData?.name||'Our Family';
   const grid=document.getElementById('who-grid');grid.innerHTML='';
-  const joinedAs=sessionStorage.getItem('bp_joined_as');
+  const joinedAs=localStorage.getItem('bp_joined_as');
   const entries=Object.entries(familyData.members||{});
   const visible=joinedAs?entries.filter(([id])=>id===joinedAs):entries;
   visible.forEach(([id,m])=>{
@@ -1075,14 +1343,20 @@ function checkPin(){
   const{id,member}=pinTarget;
   if(pinEntry===String(member.pin)){
     meId=id;me=member;
-    if(me.role==='child') sessionStorage.setItem('bp_joined_as',id);
+    if(me.role==='child') localStorage.setItem('bp_joined_as',id);
     bp.dbUpdate('families/'+familyId+'/members/'+meId,{lastActive:Date.now()}).catch(()=>{});
     enterApp();
   }else{
     pinEntry='';updatePinDots();
     const el=document.getElementById('pin-err');
     el.textContent='Wrong PIN — try again';
-    el.style.animation='none';el.offsetHeight;el.style.animation='shake .3s ease';
+    el.style.animation='none';
+    void el.offsetHeight;
+    el.style.animation='shake .3s ease';
+    // Shake the pin dots too
+    document.querySelector('.pin-dots').style.animation='none';
+    void document.querySelector('.pin-dots').offsetHeight;
+    document.querySelector('.pin-dots').style.animation='shake .3s ease';
   }
 }
 
@@ -1110,7 +1384,9 @@ function pTab(tab,btn){
 }
 
 function updateApprBadge(){
-  const pc=Object.values(familyData?.tasks||{}).filter(t=>t.status==='pending').length;
+  const pendingTasks=Object.values(familyData?.tasks||{}).filter(t=>t.status==='pending').length;
+  const pendingMembers=Object.values(familyData?.members||{}).filter(m=>m.status==='pending_approval').length;
+  const pc = pendingTasks + pendingMembers;
   const badge=document.getElementById('p-appr-badge');
   if(badge){if(pc){badge.style.display='';document.getElementById('p-appr-count').textContent=pc;}else badge.style.display='none';}
   const dot=document.getElementById('tasks-dot');
@@ -1214,8 +1490,45 @@ function renderParentDash(){
   el.innerHTML=h;
 }
 
+async function approveMember(memberId){
+  await bp.dbUpdate('families/'+familyId+'/members/'+memberId,{status:'active'});
+  renderParentDash(); renderApprovals(); renderProfile();
+  toast('Member approved! They can now log in &#127881;');
+}
+
+async function rejectMember(memberId){
+  const m = familyData.members?.[memberId];
+  if(m?.username) await bp.dbRemove('usernameIndex/'+m.username).catch(()=>{});
+  await bp.dbRemove('families/'+familyId+'/members/'+memberId);
+  renderParentDash(); renderApprovals();
+  toast('Member removed');
+}
+
 function renderApprovals(){
   const el=document.getElementById('p-approvals');if(!el)return;
+
+  // Pending member approvals
+  const pendingMembers=Object.entries(familyData.members||{}).filter(([,m])=>m.status==='pending_approval');
+  let memberHtml='';
+  if(pendingMembers.length){
+    memberHtml = `<div style="font-family:var(--hero);font-size:14px;letter-spacing:1px;color:var(--teal);margin-bottom:10px;text-transform:uppercase;">New Member Requests</div>`;
+    memberHtml += pendingMembers.map(([id,m])=>`
+      <div class="appr-card" style="border-color:var(--teal);box-shadow:4px 4px 0 var(--teal);">
+        <div class="row" style="margin-bottom:8px;gap:12px;">
+          <div style="font-size:28px;">${m.avatar||'&#128100;'}</div>
+          <div style="flex:1;">
+            <div style="font-family:var(--hero);font-size:17px;letter-spacing:1px;">${m.name||m.username}</div>
+            <div style="font-size:13px;color:var(--text2);">Username: <b>${m.username}</b> wants to join</div>
+          </div>
+        </div>
+        <div class="appr-actions">
+          <button class="btn-appr" style="background:var(--teal);" onclick="approveMember('${id}')">&#10003; APPROVE</button>
+          <button class="btn-rej" style="border-color:var(--teal);color:var(--teal);" onclick="rejectMember('${id}')">&#10005;</button>
+        </div>
+      </div>`).join('');
+    memberHtml += '<div style="height:3px;background:var(--ink);margin:16px 0;"></div>';
+  }
+
   const pending=Object.entries(familyData.tasks||{}).filter(([,t])=>t.status==='pending');
   if(!pending.length){el.innerHTML=`<div class="empty"><div class="empty-icon">✅</div><div class="empty-title">All approved!</div><div class="empty-sub">Nothing waiting.</div></div>`;return;}
   el.innerHTML=pending.map(([id,t])=>{
@@ -1363,6 +1676,7 @@ async function submitTask(){
   const approval=vv('at-approval');const attachedReward=vv('at-reward')||null;
   if(!title)return toast('Enter a task title');
   if(!assign)return toast('Add a child first!');
+  if(!editTaskId && !checkFreemiumLimit('task')) return;
   const dueAt=dueStr?new Date(dueStr).getTime():null;
   const id=editTaskId||'task_'+Date.now();
   const existing=(familyData.tasks||{})[id]||{};
@@ -1398,6 +1712,26 @@ async function rejectTask(id){
   renderApprovals();renderParentDash();toast('Task rejected');
 }
 
+
+async function awardTask(id, t) {
+  const ch = familyData.members?.[t.assignedTo];
+  if(!ch) return;
+  ch.points = (ch.points||0) + t.pts;
+  ch.weeklyPoints = (ch.weeklyPoints||0) + t.pts;
+  ch.completedTasks = (ch.completedTasks||0) + 1;
+  ch.streak = (ch.streak||0) + 1;
+  await checkBadges(t.assignedTo, ch);
+  await bp.dbSet('families/'+familyId+'/members/'+t.assignedTo, ch);
+  await bp.dbSet('families/'+familyId+'/tasks/'+id+'/status', 'completed');
+  await bp.dbSet('families/'+familyId+'/tasks/'+id+'/completedAt', Date.now());
+  if(t.attachedReward) {
+    await bp.dbSet('families/'+familyId+'/issuedRewards/issued_'+Date.now(), {
+      rewardId: t.attachedReward, assignedTo: t.assignedTo,
+      note: 'Reward for: '+t.title, status: 'issued', issuedAt: Date.now()
+    });
+  }
+}
+
 async function markDone(id){
   const t=(familyData.tasks||{})[id];const ch=familyData.members?.[meId];if(!t||!ch)return;
   const needsApproval=t.requiresApproval==='required'||t.difficulty==='Hard'||t.difficulty==='Epic';
@@ -1405,18 +1739,16 @@ async function markDone(id){
     await bp.dbSet('families/'+familyId+'/tasks/'+id+'/status','pending');
     await bp.dbSet('families/'+familyId+'/tasks/'+id+'/doneAt',Date.now());
     toast('Submitted for approval! ⏳');renderChildApp();
-  }else{
-    ch.points=(ch.points||0)+t.pts;ch.weeklyPoints=(ch.weeklyPoints||0)+t.pts;
-    ch.completedTasks=(ch.completedTasks||0)+1;ch.streak=(ch.streak||0)+1;
-    checkBadges(meId,ch);
-    await bp.dbSet('families/'+familyId+'/members/'+meId,ch);
-    await bp.dbSet('families/'+familyId+'/tasks/'+id+'/status','completed');
-    await bp.dbSet('families/'+familyId+'/tasks/'+id+'/completedAt',Date.now());
-    if(t.attachedReward){
-      await bp.dbSet('families/'+familyId+'/issuedRewards/'+'issued_'+Date.now(),
-        {rewardId:t.attachedReward,assignedTo:meId,note:'Reward for: '+t.title,status:'issued',issuedAt:Date.now()});
+  } else {
+    try {
+      await awardTask(id, t);
+      confetti();
+      toast('+'+t.pts+' pts earned! &#127881;');
+      renderChildApp();
+    } catch(e) {
+      console.error('awardTask error:', e);
+      toast('Error saving — check connection');
     }
-    confetti();toast('+'+t.pts+' pts earned! 🎉');renderChildApp();
   }
 }
 
@@ -1821,9 +2153,14 @@ function renderProfile(){
   const planBadge = isPro() ? " [PRO]" : " [FREE]";
   const members=Object.entries(familyData.members||{}).map(([id,m])=>{
     const av=m.avatarUrl?`<img src="${m.avatarUrl}" style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:3px solid var(--ink);flex-shrink:0;"/>`:`<div class="avatar">${m.avatar}</div>`;
-    return `<div class="child-row row-between" style="margin-bottom:8px;background:#fff;border:3px solid var(--ink);box-shadow:var(--shadow);padding:12px 14px;">
-      <div class="row">${av}<div><div style="font-weight:700;">${m.name}</div><div style="font-size:12px;color:var(--text2);">${m.role==='parent'?'⚡ Parent':'🦸 Child'} · ${m.points||0} pts</div></div></div>
-      <button class="btn btn-ghost btn-sm" onclick="openEditProfile('${id}')">Edit</button>
+    const usernameLabel = m.username ? `<span style="font-family:monospace;background:var(--bg2);padding:1px 6px;font-size:11px;border:1px solid var(--ink);">${m.username}</span>` : '<span style="color:var(--red);font-size:11px;">no username</span>';
+    const magicBtn = m.role==='child' ? `<button class="btn btn-teal btn-sm" onclick="generateMagicLink('${id}')" style="font-size:11px;padding:5px 10px;">&#128279; Invite Link</button>` : '';
+    const pendingBadge = m.status==='pending_approval' ? '<span class="badge badge-amber" style="margin-left:4px;">Pending</span>' : '';
+    return `<div class="child-row" style="margin-bottom:8px;background:#fff;border:3px solid var(--ink);box-shadow:var(--shadow);padding:12px 14px;flex-direction:column;gap:8px;">
+      <div class="row-between">
+        <div class="row">${av}<div><div style="font-weight:700;">${m.name} ${pendingBadge}</div><div style="font-size:12px;color:var(--text2);margin-top:2px;">${m.role==='parent'?'⚡ Parent':'🦸 Child'} · ${m.points||0} pts · ${usernameLabel}</div></div></div>
+        <div style="display:flex;gap:6px;">${magicBtn}<button class="btn btn-ghost btn-sm" onclick="openEditProfile('${id}')">Edit</button></div>
+      </div>
     </div>`;
   }).join('');
 
@@ -1959,28 +2296,39 @@ function showUpgradePrompt(reason) {
 
 async function addMember(){
   const name=vv('am-name').trim();const role=vv('am-role');const pin=vv('am-pin');
+  const username=vv('am-username').trim().toLowerCase().replace(/[^a-z0-9]/g,'');
   if(!name)return toast('Enter a name');
-  // Freemium gate — only check when adding a child
+  if(role==='child' && !username)return toast('Enter a username for the child');
   if(role==='child' && !checkFreemiumLimit('child')) return;
   if(!/^\d{4}$/.test(pin))return toast('PIN must be 4 digits');
+  // Check username is unique within family
+  if(role==='child'){
+    const taken=Object.values(familyData.members||{}).some(m=>m.username===username);
+    if(taken)return toast('That username is taken — try another');
+  }
   const id='member_'+Date.now();
-  const m={id,name,role,avatar:selAvAdd,...(pendingAvUrlAm?{avatarUrl:pendingAvUrlAm}:{}),pin,
+  const m={id,name,role,username:username||null,avatar:selAvAdd,...(pendingAvUrlAm?{avatarUrl:pendingAvUrlAm}:{}),pin,
     points:0,weeklyPoints:0,completedTasks:0,streak:0,unlockedBadges:{},createdAt:Date.now()};
   pendingAvUrlAm=null;
   try {
     await bp.dbSet('families/'+familyId+'/members/'+id,m);
-    // Update local state immediately so UI reflects change
+    // Store username index for fast child login lookup
+    if(role==='child' && username){
+      await bp.dbSet('usernameIndex/'+username, {fid:familyId, mid:id});
+    }
+    // Update local state immediately
     if(!familyData.members) familyData.members={};
     familyData.members[id]=m;
     closeSheet('s-add-member');
     // Reset form
     document.getElementById('am-name').value='';
+    document.getElementById('am-username').value='';
     document.getElementById('am-pin').value='';
     document.getElementById('am-role').value='child';
     selAvAdd=AVATARS[0];
     renderParentDash();
     renderProfile();
-    toast(name+' added to the family! &#127881;');
+    toast(name+' added! Username: '+username+' &#127881;');
   } catch(e) {
     console.error('addMember error:', e);
     toast('Error adding member — try again');
@@ -2042,6 +2390,27 @@ function clearAvPhoto(){
 // 
 // JOIN CODE
 // 
+
+async function generateMagicLink(memberId){
+  const arr = new Uint8Array(16);
+  crypto.getRandomValues(arr);
+  const token = Array.from(arr).map(b=>b.toString(16).padStart(2,'0')).join('');
+  const expiresAt = Date.now() + 30*24*3600000; // 30 days
+  await bp.dbSet('magicLinks/'+token, {
+    familyId, memberId, expiresAt, used:false, createdAt:Date.now()
+  });
+  const base = window.location.href.split('?')[0];
+  const link = base + '?join=' + token;
+  // Copy to clipboard
+  try {
+    await navigator.clipboard.writeText(link);
+    toast('Link copied! Send to child via WhatsApp &#128241;');
+  } catch(e){
+    // Show link in a prompt if clipboard fails
+    window.prompt('Copy this link and send to your child:', link);
+  }
+}
+
 async function generateJoinCode(){
   const arr=new Uint8Array(6);crypto.getRandomValues(arr);
   const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
