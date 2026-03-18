@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<!-- build: 2026-03-18-v31 -->
+<!-- build: 2026-03-18-v32 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -927,7 +927,7 @@ input, select, textarea { font-family: var(--body); }
     </div>
     <div style="font-family:'Bangers',cursive;font-size:40px;color:#fff;letter-spacing:4px;">HAMBA</div>
     <div style="background:var(--gold);color:var(--ink);font-family:'Bangers',cursive;font-size:13px;letter-spacing:3px;padding:5px 16px;border:1px solid var(--border);text-transform:uppercase;">Be Legendary</div>
-    <div style="color:rgba(255,255,255,.4);font-size:10px;font-family:monospace;">v31</div>
+    <div style="color:rgba(255,255,255,.4);font-size:10px;font-family:monospace;">v32</div>
   </div>
 </div>
 
@@ -1448,6 +1448,25 @@ function enterApp(){
 function refreshViews(){
   if(!me||!familyData) return;
   me = familyData.members?.[meId] || me;
+  // Ping parent when new approvals arrive
+  if(me.role==='parent') {
+    const prevCount = window._lastApprCount || 0;
+    const newCount = Object.values(familyData.tasks||{}).filter(t=>t.status==='pending').length
+      + Object.values(familyData.members||{}).filter(m=>m.status==='pending_approval').length;
+    if(newCount > prevCount) {
+      Haptic.medium(); Audio.ping();
+    }
+    window._lastApprCount = newCount;
+  }
+  // Notify child when their task gets approved
+  if(me.role==='child') {
+    const prevPts = window._lastChildPts || me.points || 0;
+    if(me.points > prevPts) {
+      const diff = me.points - prevPts;
+      Audio.points();
+    }
+    window._lastChildPts = me.points || 0;
+  }
   try {
     if(me.role==='parent') {
       const papp = document.getElementById('v-parent-app');
@@ -1692,6 +1711,123 @@ async function completeMagicJoin(){
   }
 }
 
+
+// ══════════════════════════════════════════════════
+// HAPTIC + SOUND SYSTEM
+// ══════════════════════════════════════════════════
+
+const Haptic = {
+  light:   () => navigator.vibrate?.([10]),
+  medium:  () => navigator.vibrate?.([20]),
+  heavy:   () => navigator.vibrate?.([40]),
+  success: () => navigator.vibrate?.([10, 50, 20]),
+  error:   () => navigator.vibrate?.([30, 30, 30]),
+  celebrate: () => navigator.vibrate?.([20, 40, 20, 40, 60]),
+  tap: () => navigator.vibrate?.([8]),
+};
+
+// Web Audio API — generates tones without any audio files
+const Audio = (() => {
+  let ctx = null;
+  function getCtx() {
+    if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+    return ctx;
+  }
+  function tone(freq, duration, type='sine', vol=0.3) {
+    try {
+      const c = getCtx();
+      const osc = c.createOscillator();
+      const gain = c.createGain();
+      osc.connect(gain);
+      gain.connect(c.destination);
+      osc.frequency.value = freq;
+      osc.type = type;
+      gain.gain.setValueAtTime(vol, c.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, c.currentTime + duration);
+      osc.start(c.currentTime);
+      osc.stop(c.currentTime + duration);
+    } catch(e) {}
+  }
+  return {
+    // Satisfying quest complete ding — two rising notes
+    questComplete: () => {
+      tone(523, 0.15, 'sine', 0.25);
+      setTimeout(() => tone(784, 0.3, 'sine', 0.25), 120);
+    },
+    // Approval from parent — warm chord
+    approved: () => {
+      tone(392, 0.1, 'sine', 0.2);
+      setTimeout(() => tone(523, 0.1, 'sine', 0.2), 80);
+      setTimeout(() => tone(659, 0.4, 'sine', 0.25), 160);
+    },
+    // Points earned — ascending scale
+    points: () => {
+      [523, 587, 659, 784].forEach((f, i) =>
+        setTimeout(() => tone(f, 0.12, 'sine', 0.2), i * 60)
+      );
+    },
+    // Level up — triumphant fanfare
+    levelUp: () => {
+      [523, 659, 784, 1047].forEach((f, i) =>
+        setTimeout(() => tone(f, 0.18, 'square', 0.15), i * 80)
+      );
+    },
+    // Error — low thud
+    error: () => tone(150, 0.2, 'sawtooth', 0.15),
+    // Tap — subtle click
+    tap: () => tone(800, 0.05, 'sine', 0.1),
+    // New approval badge — gentle ping
+    ping: () => tone(880, 0.2, 'sine', 0.15),
+  };
+})();
+
+// ── RICH TOAST SYSTEM ──
+// Replaces the basic toast with stacked, icon-bearing notifications
+let _toastQueue = [];
+let _toastTimer = null;
+
+function toast(msg, type='info', duration=3000) {
+  const el = document.getElementById('toast');
+  if (!el) return;
+
+  const icons = {
+    success: '✓',
+    error:   '✕',
+    info:    '→',
+    gold:    '★',
+    quest:   '⚡',
+    approve: '✓',
+  };
+
+  const colours = {
+    success: 'var(--sage)',
+    error:   'var(--crimson)',
+    info:    'var(--slate)',
+    gold:    'var(--gold)',
+    quest:   'var(--teal)',
+    approve: 'var(--sage)',
+  };
+
+  const icon = icons[type] || icons.info;
+  const colour = colours[type] || colours.info;
+
+  el.innerHTML = `<span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:${colour};color:#fff;font-size:12px;font-weight:700;flex-shrink:0;margin-right:10px;">${icon}</span>${msg}`;
+  el.style.background = 'var(--slate)';
+  el.classList.add('show');
+
+  if (_toastTimer) clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => el.classList.remove('show'), duration);
+}
+
+function notify(msg, type='info') {
+  toast(msg, type);
+  // Haptic based on type
+  if (type === 'success' || type === 'approve') Haptic.success();
+  else if (type === 'error') Haptic.error();
+  else if (type === 'gold' || type === 'quest') Haptic.celebrate();
+  else Haptic.light();
+}
+
 async function doChildLogin(){
   const username = vv('cl-username').trim().toLowerCase().replace(/[^a-z0-9]/g,'');
   const pin = vv('cl-pin').trim();
@@ -1754,6 +1890,7 @@ async function doSignOut(){
   if(unsub)unsub();
   familyId=null;familyData=null;me=null;meId=null;
   await bp.authSignOut();
+  Haptic.light();
   show('v-auth');
 }
 
@@ -1788,12 +1925,12 @@ function checkPin(){
     enterApp();
   }else{
     pinEntry='';updatePinDots();
+    Haptic.error(); Audio.error();
     const el=document.getElementById('pin-err');
     el.textContent='Wrong PIN — try again';
     el.style.animation='none';
     void el.offsetHeight;
     el.style.animation='shake .3s ease';
-    // Shake the pin dots too
     document.querySelector('.pin-dots').style.animation='none';
     void document.querySelector('.pin-dots').offsetHeight;
     document.querySelector('.pin-dots').style.animation='shake .3s ease';
@@ -1810,6 +1947,7 @@ function renderParentApp(){
 }
 
 function pTab(tab,btn){
+  Haptic.tap();
   document.querySelectorAll('.p-tab').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.p-pane').forEach(p=>{p.style.display='none';p.classList.remove('active');});
   if(btn)btn.classList.add('active');
@@ -2126,7 +2264,8 @@ async function submitTask(){
   await bp.dbSet('families/'+familyId+'/tasks/'+id,task);
   closeSheet('s-add-task');
   renderTasks();renderParentDash();
-  toast(editTaskId?'Task updated ✓':'Task created ✓');
+  Haptic.medium();
+  notify(editTaskId ? 'Quest updated!' : 'Quest created!', 'success');
 }
 
 async function approveTask(id){
@@ -2183,7 +2322,9 @@ async function markDone(id){
     try {
       await awardTask(id, t);
       confetti();
-      toast('+'+t.pts+' pts earned! &#127881;');
+      Haptic.celebrate();
+      Audio.questComplete();
+      notify('+'+t.pts+' Hamba pts earned!', 'quest');
       renderChildApp();
     } catch(e) {
       console.error('awardTask error:', e);
@@ -2391,6 +2532,14 @@ function renderChildHUD(){
     ?`<img src="${ch.avatarUrl}" class="c-av" style="object-fit:cover;"/>`
     :`<div class="c-av">${ch.avatar}</div>`;
   const el=document.getElementById('c-hud-inner');if(!el)return;
+  // Level up detection
+  const prevLevel = el.dataset.level;
+  const currentLevel = lv.name;
+  if(prevLevel && prevLevel !== currentLevel) {
+    confetti(); Haptic.celebrate(); Audio.levelUp();
+    notify('LEVEL UP! You are now ' + currentLevel + '!', 'gold');
+  }
+  el.dataset.level = currentLevel;
   el.innerHTML=`
     <div class="c-hud-top">
       <div class="c-player">${av}
@@ -2573,6 +2722,7 @@ function renderChildProfile(){
 }
 
 function cTab(tab,btn){
+  Haptic.tap();
   document.querySelectorAll('.c-nb').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.c-pane').forEach(p=>{p.style.display='none';p.classList.remove('active');});
   if(btn)btn.classList.add('active');
@@ -2770,7 +2920,8 @@ async function addMember(){
     selAvAdd=AVATARS[0];
     renderParentDash();
     renderProfile();
-    toast(name+' added! Username: '+username+' &#127881;');
+    Haptic.success();
+    notify(name+' added to your family!', 'success');
   } catch(e) {
     console.error('addMember error:', e);
     toast('Error adding member — try again');
@@ -2846,7 +2997,8 @@ async function generateMagicLink(memberId){
   // Copy to clipboard
   try {
     await navigator.clipboard.writeText(link);
-    toast('Link copied! Send to child via WhatsApp &#128241;');
+    Haptic.light();
+    notify('Link copied! Send to child via WhatsApp', 'success');
   } catch(e){
     // Show link in a prompt if clipboard fails
     window.prompt('Copy this link and send to your child:', link);
